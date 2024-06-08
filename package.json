@@ -1,4 +1,16 @@
 {
+  "name": "yuuy",
+  "version": "1.0.5",
+  "description": "Api Gen Lib",
+  "main": "app.js",
+  "author": "Bhone Thit",
+  "bin": {
+    "yuuy": "./bin/yuuy.js"
+  },
+  "keywords": [
+    "framework",
+    "cli"
+  ],
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "commander": "^12.1.0",
@@ -11,7 +23,7 @@
     "nodemon": "^3.1.3"
   },
   "scripts": {
-    "yuuy": "node config/yuuy.js",
+    "yuuy": "node bin/yuuy.js",
     "dev" : "nodemon app.js"
   }
 }
