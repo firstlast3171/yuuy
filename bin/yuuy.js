@@ -385,7 +385,6 @@ program
   .description('Create a new project')
   .action((name) => {
     console.log(`Creating project: ${name}`);
-
     createProjectStructure(name);
   });
   const runCommand = command => {
@@ -413,7 +412,7 @@ function createProjectStructure(projectName) {
 
           console.log(`Installing Dependencies for ${projectName}`);
           const installDep = runCommand(installDepsCommand);
-          if(!checkedOut) process.exit(code -1);
+          if(!installDep) process.exit(code -1);
           console.log('Installed Successfully');
 
           console.log('Congratulations! You are ready. Follow the following commands to start yuuy');
@@ -423,6 +422,7 @@ function createProjectStructure(projectName) {
           console.log('  $ yuuy make:controller UserController');
           console.log('  $ yuuy make:route User');
           console.log('  $ yuuy make:auth');
+          console.log(`cd ${projectName} && npm run dev`);
         } catch (error) {
           console.error('Error cloning repository:', error);
         }
