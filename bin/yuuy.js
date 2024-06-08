@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const { Command } = require('commander');
+const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -384,25 +385,47 @@ program
   .description('Create a new project')
   .action((name) => {
     console.log(`Creating project: ${name}`);
-    console.log(`Creating project: ${__dirname+'../'}`);
-//     createProjectStructure(name);
+
+    createProjectStructure(name);
   });
+  const runCommand = command => {
+     try {
+     execSync (`${command}`, {stdio: 'inherit'});
+     } catch (e) {
+     console.error (`Failed to execute ${command}`);
+     return false;
+     }
+     return true;
+     }
 
 // Function to create project structure
 function createProjectStructure(projectName) {
-  const projectDir = path.join(process.cwd(), projectName);
+    
+     const gitCheckoutCommand = `git clone --depth 1 https://github.com/firstlast3171/yuuy ${projectName}`;
+     const installDepsCommand = `cd ${projectName} && npm install`;
+     try {
+          console.log('Repository cloning!');
+          const checkedOut = runCommand(gitCheckoutCommand);
+          if(!checkedOut) process.exit(code -1);
+          console.log('Repository cloned successfully!');
 
-  // Create project directory
-  fs.mkdirSync(projectDir);
-  console.log(`Created project directory: ${projectDir}`);
+        
 
-  // Create subdirectories
-  const subdirs = ['src', 'public', 'config', 'models', 'controllers', 'routes', 'middlewares'];
-  subdirs.forEach((subdir) => {
-    const dirPath = path.join(projectDir, subdir);
-    fs.mkdirSync(dirPath);
-    console.log(`Created directory: ${dirPath} and for help yuuy --help`);
-  });
+          console.log(`Installing Dependencies for ${projectName}`);
+          const installDep = runCommand(installDepsCommand);
+          if(!checkedOut) process.exit(code -1);
+          console.log('Installed Successfully');
+
+          console.log('Congratulations! You are ready. Follow the following commands to start yuuy');
+          console.log('');
+          console.log('Here:');
+          console.log('  $ yuuy make:model User');
+          console.log('  $ yuuy make:controller UserController');
+          console.log('  $ yuuy make:route User');
+          console.log('  $ yuuy make:auth');
+        } catch (error) {
+          console.error('Error cloning repository:', error);
+        }
 
   // Optionally, create initial files or perform other setup tasks
 }
