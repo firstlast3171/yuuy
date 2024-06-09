@@ -4,9 +4,6 @@
   "description": "Api Gen Lib",
   "main": "app.js",
   "author": "Bhone Thit",
-  "bin": {
-    "yuuy": "yuuy-scripts"
-  },
   "keywords": [
     "framework",
     "cli"
@@ -25,7 +22,7 @@
     "yuuy": "^1.1.0"
   },
   "scripts": {
-    "yuuy": "node bin/yuuy.js",
+    "yuuy": "yuuy-scripts",
     "dev" : "nodemon app.js"
   }
 }
