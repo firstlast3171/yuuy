@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const config = require('config');
+const config = require('./config/config');
 const port = config.port;
 const connectDB = require('./config/db');
 connectDB();
